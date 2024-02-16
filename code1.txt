@@ -1,0 +1,23 @@
+<h2>Processed Image</h2>
+    <div class="image-frame">
+        <img src="{{ url_for('static', filename='processed_image.jpg') }}" alt="Processed Image" style="max-width: 800px; max-height: 800px;">
+    </div>
+    <!-- Display lists -->
+    <div class="lists-container">
+        <div class="list">
+            <h2>Rice Type</h2>
+            <ul>
+                {% for type in rice_type %}
+                    <li>{{ type }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="list">
+            <h2>Chalkiness</h2>
+            <ul>
+                {% for chalk in chalkiness %}
+                    <li>{{ chalk }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
