@@ -470,14 +470,14 @@ def process():
 
     if uploaded_file.filename != '':
         # Save the uploaded file
-        uploaded_file.save('static//uploads//uploaded_image.jpg')
+        uploaded_file.save('static/uploads/uploaded_image.jpg')
 
         # Process the uploaded image
         rice_type, chalkiness, pos, ar, source, resized_image1, average, index, tbas, tnbas, min_length, length, breadth, dim, mult1, mult2, timestamp, dim_org  = process_image('static//uploads//uploaded_image.jpg')
         
         # Save the processed image
-        cv2.imwrite('static//resized_image1.jpg', resized_image1)
-        cv2.imwrite('static//processed_image.jpg', source)  # Assuming 'source' is the processed image
+        cv2.imwrite('static/resized_image1.jpg', resized_image1)
+        cv2.imwrite('static/processed_image.jpg', source)  # Assuming 'source' is the processed image
 
         # Pass the lists to the result template
         return render_template('result.html', 
@@ -497,8 +497,8 @@ def process():
                                mult2=mult2,
                                timestamp=timestamp,
                                dim_org=dim_org,
-                               resized_image1='static//resized_image1.jpg', 
-                               processed_image='static//processed_image.jpg')
+                               resized_image1='static/resized_image1.jpg', 
+                               processed_image='static/processed_image.jpg')
     else:
         return "No file uploaded"
 
