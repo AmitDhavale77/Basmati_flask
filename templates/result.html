@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Your existing CSS... */
+
+        .image-frame {
+            border: 3px solid #333; /* Adjust border color and thickness as needed */
+            display: inline-block; /* Make sure it doesn't stretch to full width */
+            padding: 5px; /* Add some space inside the frame */
+            margin: 5px; /* Add some space outside the frame */
+            border-radius: 8px; /* Optional: add rounded corners */
+        }
+
+        .table-container {
+            margin-top: 20px;
+            width: 75%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 12px; /* Increase padding */
+            font-size: 20px; /* Adjust font size */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #chart{
+            width: 100%;
+            max-width: 650px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h1>Processed Image and Results</h1>
+
+    <!-- Display uploaded image -->
+    <h2>Uploaded Image</h2>
+    <div class="image-frame">
+        <img src="{{ url_for('static', filename='resized_image1.jpg') }}" alt="Uploaded Image" style="max-width: 600px; max-height: 600px;">
+    </div>
+    <h2>Processed Image</h2>
+    <h3>B:Basmati, NB:Non-Basmati, C:Chalky, NC:Non-Chalky</h3>
+    <!-- Display processed image -->
+    <div class="image-and-lists-container">
+        <!-- Display processed image -->
+
+        <div class="image-frame">
+            <img src="{{ url_for('static', filename='processed_image.jpg') }}" alt="Processed Image" style="max-width: 800px; max-height: 800px;">
+        </div>
+
+        <!-- Display lists -->
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Index</th>
+                    <th>Rice Type</th>
+                    <th>Chalkiness</th>
+                    <th>Aspect Ratio</th>
+                    <th>Length</th>
+                    <th>Breadth</th>
+                </tr>
+                {% for i in range(min_length) %}
+                    <tr>
+                        <td>{{ index[i] }}</td>
+                        <td>{{ rice_type[i] }}</td>
+                        <td>{{ chalkiness[i] }}</td>
+                        <td>{{ '%.2f'|format(ar[i]) }}</td>
+                        <td>{{ '%.2f'|format(length[i]) }}</td>
+                        <td>{{ '%.2f'|format(breadth[i]) }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <h2>Average length of grains</h2>
+    <h3>{{ average|round(2) }}</h3>
+</body>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="table-container">
+        </div>
+    <h2>Download Excel Sheet</h2>
+    <button id="download-excel-btn">Download as Excel</button>
+
+    <script>
+        const downloadExcelBtn = document.getElementById('download-excel-btn');
+        downloadExcelBtn.addEventListener('click', () => {
+            const table = document.querySelector('table');
+            // Append the last four rows with mult1, mult2, dim, and timestamp
+            const tbody = table.querySelector('tbody');
+            const lastRow = tbody.insertRow(-1);
+            const cell1 = lastRow.insertCell(0);
+            const cell2 = lastRow.insertCell(1);
+            const cell3 = lastRow.insertCell(2);
+            const cell4 = lastRow.insertCell(3);
+            const cell5 = lastRow.insertCell(4);
+            cell1.textContent = 'mult1_height';
+            cell2.textContent = 'mult2_width';
+            cell3.textContent = 'dim_org';
+            cell4.textContent = 'dim';
+            cell5.textContent = 'timestamp';
+
+            // Modify this part to include the values of mult1, mult2, dim, and timestamp
+            // For example:
+            const secondLastRow = tbody.insertRow(-1);
+            const cell6 = secondLastRow.insertCell(0);
+            const cell7 = secondLastRow.insertCell(1);
+            const cell8 = secondLastRow.insertCell(2);
+            const cell9 = secondLastRow.insertCell(3);
+            const cell10 = secondLastRow.insertCell(4);
+            cell6.textContent = '{{ mult1 }}';
+            cell7.textContent = '{{ mult2 }}';
+            cell8.textContent = '{{ dim_org }}';
+            cell9.textContent = '{{ dim }}';
+            cell10.textContent = '{{ timestamp }}';
+            const wb = XLSX.utils.table_to_book(table);
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'data.xlsx';
+            link.click();
+        });
+    </script>
+</body>
+<body>
+    <h2>Rice grain type distribution</h2>
+    <h3>Total Basmati: {{tbas}}</h3>
+    <h3>Total Nonbasmati: {{tnbas}}</h3>
+</body>
+</html>

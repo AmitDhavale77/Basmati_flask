@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif, Roboto;
+            text-align: center;
+            margin: 0;
+            position: relative; /* Added this line */
+        }
+
+        body::before {
+            content: "";
+            background-image: url('https://cdn.shopify.com/s/files/1/0017/9234/4153/products/basmati6_600x.jpg?v=1563188733'); /* Replace with your transparent image path */
+            background-size: 100% 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.85; /* Adjust the overlay opacity as needed */
+            z-index: -1; /* Place the overlay behind the content */
+        }
+
+        h2 {
+            font-family: 'Roboto', Arial; /* Change 'Arial' to the desired font */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+        }
+        .bordered-container {
+            border: 3.5px solid #000; /* Add a border around the container */
+            padding: 20px; /* Add padding to create space inside the container */
+            max-width: 800px; /* Limit the width of the container */
+            margin: 0 auto; /* Center the container on the page */
+        }
+        .box {
+    background-color: rgba(255, 255, 255, 0.8); /* Background color with transparency */
+    padding: 20px; /* Add padding to create space inside the box */
+    margin: 0 auto; /* Set left and right margin to 'auto' */
+    max-width: 600px;
+}
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="box">
+    <h1>Hii, welcome to the Rice Classification webapp</h1>
+    <h2>Upload an Image</h2>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png" style="font-weight: bold; font-size: 16px; text-align: center; margin-left: 95px;" >
+        <input type="submit" value="Upload">
+
+    </form>
+</div>
+</body>
+</html>

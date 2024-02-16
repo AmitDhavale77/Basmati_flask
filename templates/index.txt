@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif, Roboto;
+            text-align: center;
+            margin: 50px;
+            background-color: #8b7959;
+        }
+
+        h2 {
+            font-family: 'Roboto', Arial; /* Change 'Arial' to the desired font */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {                      
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hii, welcome to the Rice Classification webapp</h1>
+    <h2>Upload an Image</h2>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png">
+        <input type="submit" value="Upload">
+        <img src="https://cdn.shopify.com/s/files/1/0017/9234/4153/products/basmati6_600x.jpg?v=1563188733" alt="Sample Image" style="width: 1000px; height: 250px;">
+    </form>
+</body>
+</html>
